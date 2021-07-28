@@ -90,8 +90,19 @@ const test4 = async () => {
     });
 };
 
-btn.addEventListener("click", (e) => {
+btn.addEventListener("click", async (e) => {
   e.preventDefault();
   //   test4();
-  imageDow.download();
+  //   imageDow.download();
+  console.log("works2");
+  var image = imageDow; // HTMLImageElement representing an <img> element
+  var canvas = document.createElement("canvas");
+  canvas.width = image.width;
+  canvas.height = image.height;
+  canvas.getContext("2d").drawImage(image, 0, 0);
+  canvas.toBlob(
+    async (blob) =>
+      await navigator.share({ blob: blob, mimeType: "image/jpg" }),
+    "image/jpg"
+  );
 });

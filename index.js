@@ -64,45 +64,47 @@ const imageDow = document.querySelector(".image__download");
 //   }
 // };
 
-const test4 = async () => {
-  fetch("https://dummyimage.com/skyscraper/f0f/f")
-    .then(function (response) {
-      return response.blob();
-    })
-    .then(function (blob) {
-      var file = new File([blob], "picture.jpg", { type: "image/jpeg" });
-      var filesArray = [file];
-      console.log(blob, filesArray);
-      if (navigator.canShare && navigator.canShare({ files: filesArray })) {
-        navigator
-          .share({
-            text: "some_text",
-            files: filesArray,
-            title: "some_title",
-            url: "some_url",
-          })
-          .then(() => console.log("Share was successful."))
-          .catch((error) => console.log("Sharing failed", error));
-      } else {
-        console.log("your browser is not supported");
-        window.alert("errorrrrr");
-      }
-    });
+// const test4 = async () => {
+//   fetch("https://dummyimage.com/skyscraper/f0f/f")
+//     .then(function (response) {
+//       return response.blob();
+//     })
+//     .then(function (blob) {
+//       var file = new File([blob], "picture.jpg", { type: "image/jpeg" });
+//       var filesArray = [file];
+//       console.log(blob, filesArray);
+//       if (navigator.canShare && navigator.canShare({ files: filesArray })) {
+//         navigator
+//           .share({
+//             text: "some_text",
+//             files: filesArray,
+//             title: "some_title",
+//             url: "some_url",
+//           })
+//           .then(() => console.log("Share was successful."))
+//           .catch((error) => console.log("Sharing failed", error));
+//       } else {
+//         console.log("your browser is not supported");
+//         window.alert("errorrrrr");
+//       }
+//     });
+// };
+
+const test5 = async () => {
+  const response = await fetch("image.jpg");
+  const blob = await response.blob();
+  const filesArray = [
+    new File([blob], "meme.jpg", {
+      type: "image/jpeg",
+      lastModified: new Date().getTime(),
+    }),
+  ];
+  const shareData = {
+    files: filesArray,
+  };
+  navigator.share(shareData);
 };
 
 btn.addEventListener("click", async (e) => {
-  e.preventDefault();
-  //   test4();
-  //   imageDow.download();
-  console.log("works2");
-  var image = imageDow; // HTMLImageElement representing an <img> element
-  var canvas = document.createElement("canvas");
-  canvas.width = image.width;
-  canvas.height = image.height;
-  canvas.getContext("2d").drawImage(image, 0, 0);
-  canvas.toBlob(
-    async (blob) =>
-      await navigator.share({ blob: blob, mimeType: "image/jpg" }),
-    "image/jpg"
-  );
+  test5();
 });

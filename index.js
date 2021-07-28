@@ -1,4 +1,5 @@
 const btn = document.querySelector("#download-img");
+const imageDow = document.querySelector(".image__download");
 
 // const downloadOnMobile = () => {
 //   const filesArray = [];
@@ -91,5 +92,6 @@ const test4 = async () => {
 
 btn.addEventListener("click", (e) => {
   e.preventDefault();
-  test4();
+  //   test4();
+  imageDow.download();
 });

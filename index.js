@@ -18,16 +18,60 @@ const btn = document.querySelector("#download-img");
 //   }
 // };
 
-const test2 = async () => {
-  await fetch("https://dummyimage.com/skyscraper/f0f/f")
+// const test2 = async () => {
+//   var file = new File([blob], "picture.jpg", { type: "image/jpeg" });
+//   var filesArray = [file];
+//   console.log("second share");
+//   if (navigator.canShare) {
+//     navigator
+//       .share({
+//         text: "some_text",
+//         files: filesArray,
+//         title: "some_title",
+//         url: "some_url",
+//       })
+//       .then(() => console.log("Share was successful."))
+//       .catch((error) => console.log("Sharing failed", error));
+//   } else {
+//     console.log("your browser not support");
+//   }
+// };
+
+// const image = new Image();
+// image.src = "image.jpg";
+
+// console.log(image);
+// const blob2 = image.blob();
+
+// const share = async (title, text, blob) => {
+//   const data = {
+//     files: [
+//       new File([blob], "image.png", {
+//         type: blob.type,
+//       }),
+//     ],
+//     title: title,
+//     text: text,
+//   };
+//   try {
+//     if (!navigator.canShare(data)) {
+//       throw new Error("Can't share data.", data);
+//     }
+//     await navigator.share(data);
+//   } catch (err) {
+//     console.error(err.name, err.message);
+//   }
+// };
+
+const test4 = async () => {
+  fetch("https://dummyimage.com/skyscraper/f0f/f")
     .then(function (response) {
-      console.log("first step");
       return response.blob();
     })
     .then(function (blob) {
       var file = new File([blob], "picture.jpg", { type: "image/jpeg" });
       var filesArray = [file];
-      console.log("second share");
+      console.log(blob, filesArray);
       if (navigator.canShare && navigator.canShare({ files: filesArray })) {
         navigator
           .share({
@@ -39,12 +83,13 @@ const test2 = async () => {
           .then(() => console.log("Share was successful."))
           .catch((error) => console.log("Sharing failed", error));
       } else {
-        console.log("your browser not support");
+        console.log("your browser is not supported");
+        window.alert("errorrrrr");
       }
     });
 };
 
 btn.addEventListener("click", (e) => {
   e.preventDefault();
-  test2();
+  test4();
 });
